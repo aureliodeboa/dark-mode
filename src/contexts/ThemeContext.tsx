@@ -13,9 +13,16 @@ export const ThemeContext = createContext<ThemeContextType | null>(null); //cria
 
 export const ThemeProvider = ({children} :  {children: ReactNode })=>{ 
     const [theme, setTheme]= useState(
-        localStorage.getItem(THEME_LOCAL_KEY) || 'light' //procura qual tema esta definido, caso null coloca-se light
+        localStorage.getItem(THEME_LOCAL_KEY) || 'dark' //procura qual tema esta definido, caso null coloca-se dark
     );
     useEffect(()=>{
+        if(theme=='dark')
+            {
+                document.documentElement.classList.add('dark');
+            }
+            else{
+                document.documentElement.classList.remove('dark');
+            }
         localStorage.setItem(THEME_LOCAL_KEY, theme);  //seta o tema no local storage
     },[theme])
 
